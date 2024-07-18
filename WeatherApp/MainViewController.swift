@@ -21,13 +21,17 @@ class MainViewController: UIViewController {
     private weak var mainWeatherImageView: UIImageView?
     private weak var snowflake: UIImageView?
     
-    var buttons = [UIButton?]()
-    private var currentWeatherState: CurrentWeather = .sun {
+    private var buttons = [UIButton?]()
+    var currentWeatherState: CurrentWeather? {
         didSet {
             updateUI()
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        updateUI()
+    }
     
     
     override func viewDidLoad() {
@@ -37,9 +41,6 @@ class MainViewController: UIViewController {
         
         
     }
-    
-    
-    
     
     private func updateUI() {
         mainWeatherImageView?.layer.removeAllAnimations()
@@ -82,6 +83,8 @@ class MainViewController: UIViewController {
             snowButton?.backgroundColor = #colorLiteral(red: 0.2588235294, green: 0.2941176471, blue: 0.3294117647, alpha: 1)
             animationSelector()
             animateSnowFlake()
+        case .none:
+            print("missing")
         }
     }
     
@@ -143,15 +146,15 @@ class MainViewController: UIViewController {
     
 }
 //MARK: Configure UI
-extension MainViewController {
-    private func configureUI(){
+private extension MainViewController {
+     func configureUI(){
         configureStackViewAndButton()
         configureMainWeatherImageView()
         buttons = [sunButton, rainButton, cloudsButton, snowButton]
         updateUI()
     }
     
-    private func configureStackViewAndButton() {
+     func configureStackViewAndButton() {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
@@ -207,7 +210,7 @@ extension MainViewController {
         ])
     }
     
-    private func configureMainWeatherImageView() {
+     func configureMainWeatherImageView() {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "sunBig")
         

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AC064F042C486AEC00B846CE /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC064F032C486AEC00B846CE /* Color+Extension.swift */; };
+		AC8ED8852C499E8E00AB8436 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8ED8842C499E8E00AB8436 /* SplashScreenViewController.swift */; };
 		ACBFC6E52C471F55003E7F26 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACBFC6E42C471F55003E7F26 /* AppDelegate.swift */; };
 		ACBFC6E72C471F55003E7F26 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACBFC6E62C471F55003E7F26 /* SceneDelegate.swift */; };
 		ACBFC6E92C471F55003E7F26 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACBFC6E82C471F55003E7F26 /* MainViewController.swift */; };
@@ -17,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		AC064F032C486AEC00B846CE /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		AC8ED8842C499E8E00AB8436 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
 		ACBFC6E12C471F55003E7F26 /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACBFC6E42C471F55003E7F26 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACBFC6E62C471F55003E7F26 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,9 +47,18 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		AC8ED8832C499E6A00AB8436 /* SplashScreenViewController */ = {
+			isa = PBXGroup;
+			children = (
+				AC8ED8842C499E8E00AB8436 /* SplashScreenViewController.swift */,
+			);
+			path = SplashScreenViewController;
+			sourceTree = "<group>";
+		};
 		ACBFC6D82C471F55003E7F26 = {
 			isa = PBXGroup;
 			children = (
+				AC8ED8832C499E6A00AB8436 /* SplashScreenViewController */,
 				AC064F022C486AD000B846CE /* Helpers */,
 				ACBFC6E32C471F55003E7F26 /* WeatherApp */,
 				ACBFC6E22C471F55003E7F26 /* Products */,
@@ -145,6 +156,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC8ED8852C499E8E00AB8436 /* SplashScreenViewController.swift in Sources */,
 				ACBFC6E92C471F55003E7F26 /* MainViewController.swift in Sources */,
 				ACBFC6E52C471F55003E7F26 /* AppDelegate.swift in Sources */,
 				ACBFC6E72C471F55003E7F26 /* SceneDelegate.swift in Sources */,
