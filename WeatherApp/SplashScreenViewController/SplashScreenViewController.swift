@@ -33,16 +33,18 @@ class SplashScreenViewController: UIViewController {
     
     func animate(imageView: UIImageView?) {
         guard let imageView = imageView else { return }
-        UIView.animate(withDuration: 0.12, delay: 0.0, options: [.autoreverse], animations: {
+        UIView.animate(withDuration: 0.15, delay: 0.0, options: [], animations: {
             imageView.transform = CGAffineTransform(translationX: 0, y: -20)
         }, completion: { _ in
-            imageView.transform = .identity
+            UIView.animate(withDuration: 0.15, animations: {
+                imageView.transform = .identity
+            })
         })
     }
     
     func startAnimationCycle() {
         randomCount = randomNumberInRange()
-        timer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(animateNextImage), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 0.32, target: self, selector: #selector(animateNextImage), userInfo: nil, repeats: true)
     }
     
     @objc func animateNextImage() {
@@ -61,7 +63,7 @@ class SplashScreenViewController: UIViewController {
                 }
             }
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.8) {
                 let vc = MainViewController()
                 vc.currentWeatherState = self.currentWeather()
                 vc.modalPresentationStyle = .fullScreen

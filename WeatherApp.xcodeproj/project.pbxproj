@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		AC064F042C486AEC00B846CE /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC064F032C486AEC00B846CE /* Color+Extension.swift */; };
+		AC778CA02C4AF7D500758CFA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AC778C9E2C4AF7D500758CFA /* Localizable.strings */; };
+		AC778CA32C4AF8CA00758CFA /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC778CA22C4AF8CA00758CFA /* String+Extension.swift */; };
 		AC8ED8852C499E8E00AB8436 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8ED8842C499E8E00AB8436 /* SplashScreenViewController.swift */; };
 		ACBFC6E52C471F55003E7F26 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACBFC6E42C471F55003E7F26 /* AppDelegate.swift */; };
 		ACBFC6E72C471F55003E7F26 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACBFC6E62C471F55003E7F26 /* SceneDelegate.swift */; };
@@ -18,6 +20,10 @@
 
 /* Begin PBXFileReference section */
 		AC064F032C486AEC00B846CE /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		AC778C9D2C4AF7AE00758CFA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		AC778C9F2C4AF7D500758CFA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AC778CA12C4AF7F100758CFA /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AC778CA22C4AF8CA00758CFA /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		AC8ED8842C499E8E00AB8436 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
 		ACBFC6E12C471F55003E7F26 /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACBFC6E42C471F55003E7F26 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +49,7 @@
 			isa = PBXGroup;
 			children = (
 				AC064F032C486AEC00B846CE /* Color+Extension.swift */,
+				AC778CA22C4AF8CA00758CFA /* String+Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -58,8 +65,6 @@
 		ACBFC6D82C471F55003E7F26 = {
 			isa = PBXGroup;
 			children = (
-				AC8ED8832C499E6A00AB8436 /* SplashScreenViewController */,
-				AC064F022C486AD000B846CE /* Helpers */,
 				ACBFC6E32C471F55003E7F26 /* WeatherApp */,
 				ACBFC6E22C471F55003E7F26 /* Products */,
 			);
@@ -76,9 +81,12 @@
 		ACBFC6E32C471F55003E7F26 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				AC8ED8832C499E6A00AB8436 /* SplashScreenViewController */,
 				ACBFC6E42C471F55003E7F26 /* AppDelegate.swift */,
 				ACBFC6E62C471F55003E7F26 /* SceneDelegate.swift */,
 				ACBFC6E82C471F55003E7F26 /* MainViewController.swift */,
+				AC064F022C486AD000B846CE /* Helpers */,
+				AC778C9E2C4AF7D500758CFA /* Localizable.strings */,
 				ACBFC6ED2C471F56003E7F26 /* Assets.xcassets */,
 				ACBFC6EF2C471F56003E7F26 /* LaunchScreen.storyboard */,
 				ACBFC6F22C471F56003E7F26 /* Info.plist */,
@@ -128,6 +136,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = ACBFC6D82C471F55003E7F26;
 			productRefGroup = ACBFC6E22C471F55003E7F26 /* Products */;
@@ -145,6 +154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACBFC6EE2C471F56003E7F26 /* Assets.xcassets in Resources */,
+				AC778CA02C4AF7D500758CFA /* Localizable.strings in Resources */,
 				ACBFC6F12C471F56003E7F26 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -160,6 +170,7 @@
 				ACBFC6E92C471F55003E7F26 /* MainViewController.swift in Sources */,
 				ACBFC6E52C471F55003E7F26 /* AppDelegate.swift in Sources */,
 				ACBFC6E72C471F55003E7F26 /* SceneDelegate.swift in Sources */,
+				AC778CA32C4AF8CA00758CFA /* String+Extension.swift in Sources */,
 				AC064F042C486AEC00B846CE /* Color+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -167,10 +178,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		AC778C9E2C4AF7D500758CFA /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AC778C9F2C4AF7D500758CFA /* en */,
+				AC778CA12C4AF7F100758CFA /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		ACBFC6EF2C471F56003E7F26 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				ACBFC6F02C471F56003E7F26 /* Base */,
+				AC778C9D2C4AF7AE00758CFA /* ru */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -183,6 +204,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -246,6 +268,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

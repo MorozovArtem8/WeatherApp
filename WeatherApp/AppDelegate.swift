@@ -1,9 +1,5 @@
-//
-//  AppDelegate.swift
-//  WeatherApp
-//
 //  Created by Artem Morozov on 17.07.2024.
-//
+
 
 import UIKit
 

@@ -7,6 +7,20 @@ enum CurrentWeather {
     case rain
     case clouds
     case snow
+    
+    var localized: String {
+        switch self {
+            
+        case .sun:
+            return "sunny".localized
+        case .rain:
+            return "rain".localized
+        case .clouds:
+            return "cloudy".localized
+        case .snow:
+            return "snow".localized
+        }
+    }
 }
 
 class MainViewController: UIViewController {
@@ -17,6 +31,7 @@ class MainViewController: UIViewController {
     private weak var snowButton: UIButton?
     
     private weak var stackView: UIStackView?
+    private weak var weatherLabel: UILabel?
     
     private weak var mainWeatherImageView: UIImageView?
     private weak var snowflake: UIImageView?
@@ -61,28 +76,31 @@ class MainViewController: UIViewController {
         switch currentWeatherState {
         case .sun:
             self.mainWeatherImageView?.image = UIImage(named: "sunBig")
-            
+            weatherLabel?.text = currentWeatherState?.localized
             sunButton?.backgroundColor = #colorLiteral(red: 0.2588235294, green: 0.2941176471, blue: 0.3294117647, alpha: 1)
             animationSelector()
             sunAnimation()
             
         case .rain:
             self.mainWeatherImageView?.image = UIImage(named: "rainBig")
-            
+            weatherLabel?.text = currentWeatherState?.localized
             rainButton?.backgroundColor = #colorLiteral(red: 0.2588235294, green: 0.2941176471, blue: 0.3294117647, alpha: 1)
             animationSelector()
             animateBackgroundRain()
+            
         case .clouds:
             self.mainWeatherImageView?.image = UIImage(named: "cloudsBig")
-            
+            weatherLabel?.text = currentWeatherState?.localized
             cloudsButton?.backgroundColor = #colorLiteral(red: 0.2588235294, green: 0.2941176471, blue: 0.3294117647, alpha: 1)
             animationSelector()
+            
         case .snow:
             self.mainWeatherImageView?.image = UIImage(named: "snowBig")
-            
+            weatherLabel?.text = currentWeatherState?.localized
             snowButton?.backgroundColor = #colorLiteral(red: 0.2588235294, green: 0.2941176471, blue: 0.3294117647, alpha: 1)
             animationSelector()
             animateSnowFlake()
+            
         case .none:
             print("missing")
         }
@@ -150,6 +168,7 @@ private extension MainViewController {
      func configureUI(){
         configureStackViewAndButton()
         configureMainWeatherImageView()
+         configureWeatherLabel()
         buttons = [sunButton, rainButton, cloudsButton, snowButton]
         updateUI()
     }
@@ -225,6 +244,26 @@ private extension MainViewController {
         ])
         
         self.mainWeatherImageView = imageView
+    }
+    
+    func configureWeatherLabel() {
+        guard let mainWeatherImageView = mainWeatherImageView else {return}
+        let weatherLabel = UILabel()
+        weatherLabel.text = "Hello"
+        weatherLabel.textColor = .black
+        weatherLabel.textAlignment = .center
+        weatherLabel.font = UIFont.boldSystemFont(ofSize: 30)
+        weatherLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(weatherLabel)
+        NSLayoutConstraint.activate([
+            weatherLabel.topAnchor.constraint(equalTo: mainWeatherImageView.bottomAnchor, constant: 20),
+            weatherLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            weatherLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            weatherLabel.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        self.weatherLabel = weatherLabel
+        
     }
     
     @objc func sunButtonDidTapped() {
