@@ -2,28 +2,23 @@
 
 import UIKit
 
-enum CurrentWeather {
-    case sun
-    case rain
-    case clouds
-    case snow
+protocol MainViewControllerProtocol: AnyObject{
+    var presenter: MainViewPresenterProtocol { get set }
     
-    var localized: String {
-        switch self {
-            
-        case .sun:
-            return "sunny".localized
-        case .rain:
-            return "rain".localized
-        case .clouds:
-            return "cloudy".localized
-        case .snow:
-            return "snow".localized
-        }
-    }
+    func updateUI(userSelected: CurrentWeather)
 }
 
-class MainViewController: UIViewController {
+final class MainViewController: UIViewController & MainViewControllerProtocol {
+    var presenter: MainViewPresenterProtocol
+    
+    init(presenter: MainViewPresenterProtocol) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private weak var sunButton: UIButton?
     private weak var rainButton: UIButton?
@@ -37,15 +32,11 @@ class MainViewController: UIViewController {
     private weak var snowflake: UIImageView?
     
     private var buttons = [UIButton?]()
-    var currentWeatherState: CurrentWeather? {
-        didSet {
-            updateUI()
-        }
-    }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        updateUI()
+        presenter.viewUpdateUI()
     }
     
     
@@ -53,16 +44,16 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor("#2E86AB")
         configureUI()
-        
+        presenter.viewDidLoad()
         
     }
     
-    private func updateUI() {
+    func updateUI(userSelected: CurrentWeather) {
         mainWeatherImageView?.layer.removeAllAnimations()
         snowflake?.layer.removeAllAnimations()
         snowflake?.removeFromSuperview()
         resetSelectButtons()
-        selectButton()
+        selectButton(userSelected: userSelected)
     }
     
     private func resetSelectButtons() {
@@ -72,41 +63,38 @@ class MainViewController: UIViewController {
         }
     }
     
-    private func selectButton() {
-        switch currentWeatherState {
+    private func selectButton(userSelected: CurrentWeather) {
+        switch userSelected {
         case .sun:
             self.mainWeatherImageView?.image = UIImage(named: "sunBig")
-            weatherLabel?.text = currentWeatherState?.localized
+            weatherLabel?.text = userSelected.localized
             sunButton?.backgroundColor = #colorLiteral(red: 0.2588235294, green: 0.2941176471, blue: 0.3294117647, alpha: 1)
             animationSelector()
             sunAnimation()
             
         case .rain:
             self.mainWeatherImageView?.image = UIImage(named: "rainBig")
-            weatherLabel?.text = currentWeatherState?.localized
+            weatherLabel?.text = userSelected.localized
             rainButton?.backgroundColor = #colorLiteral(red: 0.2588235294, green: 0.2941176471, blue: 0.3294117647, alpha: 1)
             animationSelector()
             animateBackgroundRain()
             
         case .clouds:
             self.mainWeatherImageView?.image = UIImage(named: "cloudsBig")
-            weatherLabel?.text = currentWeatherState?.localized
+            weatherLabel?.text = userSelected.localized
             cloudsButton?.backgroundColor = #colorLiteral(red: 0.2588235294, green: 0.2941176471, blue: 0.3294117647, alpha: 1)
             animationSelector()
             
         case .snow:
             self.mainWeatherImageView?.image = UIImage(named: "snowBig")
-            weatherLabel?.text = currentWeatherState?.localized
+            weatherLabel?.text = userSelected.localized
             snowButton?.backgroundColor = #colorLiteral(red: 0.2588235294, green: 0.2941176471, blue: 0.3294117647, alpha: 1)
             animationSelector()
             animateSnowFlake()
-            
-        case .none:
-            print("missing")
         }
     }
     
-    func animationSelector() {
+    private func animationSelector() {
         UIView.animate(withDuration: 0.5, animations: {
             self.mainWeatherImageView?.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         }) { _ in
@@ -116,7 +104,7 @@ class MainViewController: UIViewController {
         }
     }
     
-    func animateBackgroundRain() {
+    private func animateBackgroundRain() {
         UIView.animate(withDuration: 0.1, animations: {
             self.view.backgroundColor = .white
         }) { _ in
@@ -161,19 +149,18 @@ class MainViewController: UIViewController {
         rotationAnimation.repeatCount = .infinity
         mainWeatherImageView.layer.add(rotationAnimation, forKey: "rotateAnimation")
     }
-    
 }
+
 //MARK: Configure UI
 private extension MainViewController {
-     func configureUI(){
+    func configureUI(){
         configureStackViewAndButton()
         configureMainWeatherImageView()
-         configureWeatherLabel()
+        configureWeatherLabel()
         buttons = [sunButton, rainButton, cloudsButton, snowButton]
-        updateUI()
     }
     
-     func configureStackViewAndButton() {
+    func configureStackViewAndButton() {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
@@ -229,7 +216,7 @@ private extension MainViewController {
         ])
     }
     
-     func configureMainWeatherImageView() {
+    func configureMainWeatherImageView() {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "sunBig")
         
@@ -267,20 +254,21 @@ private extension MainViewController {
     }
     
     @objc func sunButtonDidTapped() {
-        currentWeatherState = .sun
+        presenter.didTapSunButton()
     }
     
     @objc func rainButtonDidTapped() {
-        currentWeatherState = .rain
+        presenter.didTapRainButton()
     }
     
     @objc func cloudsButtonDidTapped() {
-        currentWeatherState = .clouds
+        presenter.didTapCloudButton()
     }
     
     @objc func snowButtonDidTapped() {
-        currentWeatherState = .snow
+        presenter.didTapSnowButton()
     }
     
 }
+
 

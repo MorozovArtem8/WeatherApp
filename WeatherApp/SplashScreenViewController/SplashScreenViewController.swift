@@ -1,6 +1,23 @@
+//  Created by Artem Morozov on 18.07.2024.
+
 import UIKit
 
-class SplashScreenViewController: UIViewController {
+protocol SplashScreenViewControllerProtocol: AnyObject {
+    var presenter: SplashScreenViewPresenterProtocol {get set}
+}
+
+final class SplashScreenViewController: UIViewController & SplashScreenViewControllerProtocol {
+    
+    init(presenter: SplashScreenViewPresenterProtocol) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    var presenter: SplashScreenViewPresenterProtocol
     
     private weak var sunImage: UIImageView?
     private weak var rainImage: UIImageView?
@@ -64,8 +81,9 @@ class SplashScreenViewController: UIViewController {
             }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.8) {
-                let vc = MainViewController()
-                vc.currentWeatherState = self.currentWeather()
+                let presenter = MainViewPresenter(currentWeatherState: self.currentWeather())
+                let vc = MainViewController(presenter: presenter)
+                presenter.view = vc
                 vc.modalPresentationStyle = .fullScreen
                 
                 if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
