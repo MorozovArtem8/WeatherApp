@@ -4,6 +4,9 @@ import UIKit
 
 protocol SplashScreenViewControllerProtocol: AnyObject {
     var presenter: SplashScreenViewPresenterProtocol {get set}
+    
+    func scrollAnimation(imageView: UIImageView?)
+    func scaleAnimation(imageView: UIImageView?)
 }
 
 final class SplashScreenViewController: UIViewController & SplashScreenViewControllerProtocol {
@@ -24,31 +27,19 @@ final class SplashScreenViewController: UIViewController & SplashScreenViewContr
     private weak var cloudsImage: UIImageView?
     private weak var snowImage: UIImageView?
     
-    
-    private var images: [UIImageView] = []
-    private var timer: Timer?
-    private var currentImagesInArray: Int = 0
-    private var randomCount = 0
-    private var randomCountChecker = 0
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor("#2E86AB")
         configureUI()
-        
+        presenter.viewDidLoad()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        startAnimationCycle()
+        presenter.viewDidAppear()
     }
     
-    private func randomNumberInRange() -> Int {
-        return Int.random(in: 5...10)
-    }
-    
-    func animate(imageView: UIImageView?) {
+    func scrollAnimation(imageView: UIImageView?) {
         guard let imageView = imageView else { return }
         UIView.animate(withDuration: 0.15, delay: 0.0, options: [], animations: {
             imageView.transform = CGAffineTransform(translationX: 0, y: -20)
@@ -59,61 +50,16 @@ final class SplashScreenViewController: UIViewController & SplashScreenViewContr
         })
     }
     
-    func startAnimationCycle() {
-        randomCount = randomNumberInRange()
-        timer = Timer.scheduledTimer(timeInterval: 0.32, target: self, selector: #selector(animateNextImage), userInfo: nil, repeats: true)
-    }
-    
-    @objc func animateNextImage() {
-        if currentImagesInArray == 4 {
-            currentImagesInArray = 0
-        }
-        
-        if randomCountChecker == randomCount {
-            timer?.invalidate()
-            timer = nil
-            UIView.animate(withDuration: 0.8, delay: 0, options: [.repeat, .autoreverse], animations: {
-                self.images[self.currentImagesInArray].transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-            }) { _ in
-                UIView.animate(withDuration: 0.8) {
-                    self.images[self.currentImagesInArray].transform = CGAffineTransform.identity
-                }
+    func scaleAnimation(imageView: UIImageView?) {
+        guard let imageView = imageView else { return }
+        UIView.animate(withDuration: 0.8, delay: 0, options: [.repeat, .autoreverse], animations: {
+            imageView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        }) { _ in
+            UIView.animate(withDuration: 0.8) {
+                imageView.transform = CGAffineTransform.identity
             }
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.8) {
-                let presenter = MainViewPresenter(currentWeatherState: self.currentWeather())
-                let vc = MainViewController(presenter: presenter)
-                presenter.view = vc
-                vc.modalPresentationStyle = .fullScreen
-                
-                if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                   let windowSceneDelegate = scene.delegate as? UIWindowSceneDelegate,
-                   let window = windowSceneDelegate.window {
-                    window?.rootViewController = vc
-                    window?.makeKeyAndVisible()
-                }
-            }
-            
-            return
-        }
-        
-        animate(imageView: images[currentImagesInArray])
-        currentImagesInArray += 1
-        randomCountChecker += 1
-    }
-    
-    func currentWeather() -> CurrentWeather {
-        if currentImagesInArray == 0 {
-            return .sun
-        } else if currentImagesInArray == 1 {
-            return .rain
-        } else if currentImagesInArray == 2 {
-            return .clouds
-        } else {
-            return .snow
         }
     }
-    
 }
 
 //MARK: Configure UI
@@ -166,6 +112,6 @@ private extension SplashScreenViewController {
             stackView.heightAnchor.constraint(equalToConstant: 100)
         ])
         
-        images = [sunImage, rainImage, cloudsImage, snowImage]
+        presenter.images = [sunImage, rainImage, cloudsImage, snowImage]
     }
 }
