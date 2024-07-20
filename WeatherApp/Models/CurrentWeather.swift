@@ -2,7 +2,7 @@
 
 import Foundation
 
-enum CurrentWeather {
+enum CurrentWeather: CaseIterable {
     case sun
     case rain
     case clouds
