@@ -5,8 +5,7 @@ import UIKit
 protocol SplashScreenViewControllerProtocol: AnyObject {
     var presenter: SplashScreenViewPresenterProtocol {get set}
     
-    func scrollAnimation(imageView: UIImageView?)
-    func scaleAnimation(imageView: UIImageView?)
+    func animation(currentWeather: CurrentWeather, animationType: AnimationType)
 }
 
 final class SplashScreenViewController: UIViewController & SplashScreenViewControllerProtocol {
@@ -39,8 +38,8 @@ final class SplashScreenViewController: UIViewController & SplashScreenViewContr
         presenter.viewDidAppear()
     }
     
-    func scrollAnimation(imageView: UIImageView?) {
-        guard let imageView = imageView else { return }
+    private func liftingAnimation(currentWeather: CurrentWeather) {
+        guard let imageView = returnSelectedImageView(currentWeather) else { return }
         UIView.animate(withDuration: 0.15, delay: 0.0, options: [], animations: {
             imageView.transform = CGAffineTransform(translationX: 0, y: -20)
         }, completion: { _ in
@@ -50,14 +49,36 @@ final class SplashScreenViewController: UIViewController & SplashScreenViewContr
         })
     }
     
-    func scaleAnimation(imageView: UIImageView?) {
-        guard let imageView = imageView else { return }
+    private func scaleAnimation(currentWeather: CurrentWeather) {
+        guard let imageView = returnSelectedImageView(currentWeather) else { return }
         UIView.animate(withDuration: 0.8, delay: 0, options: [.repeat, .autoreverse], animations: {
             imageView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         }) { _ in
             UIView.animate(withDuration: 0.8) {
                 imageView.transform = CGAffineTransform.identity
             }
+        }
+    }
+    
+    func animation(currentWeather: CurrentWeather, animationType: AnimationType) {
+        switch animationType {
+        case .liftingAnimation:
+            liftingAnimation(currentWeather: currentWeather)
+        case .scaleAnimation:
+            scaleAnimation(currentWeather: currentWeather)
+        }
+    }
+    
+    private func returnSelectedImageView(_ currentWeather: CurrentWeather) -> UIImageView?{
+        switch currentWeather {
+        case .sun:
+            sunImage
+        case .rain:
+            rainImage
+        case .clouds:
+            cloudsImage
+        case .snow:
+            snowImage
         }
     }
 }
@@ -111,7 +132,5 @@ private extension SplashScreenViewController {
             stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             stackView.heightAnchor.constraint(equalToConstant: 100)
         ])
-        
-        presenter.images = [sunImage, rainImage, cloudsImage, snowImage]
     }
 }

@@ -170,14 +170,15 @@ private extension MainViewController {
         
         let sunButton = UIButton(type: .custom)
         sunButton.layer.cornerRadius = 15
+        sunButton.accessibilityIdentifier = "sunButton"
         sunButton.clipsToBounds = true
-        
         sunButton.setImage(UIImage(named: "sunButton"), for: .normal)
         sunButton.addTarget(self, action: #selector(sunButtonDidTapped), for: .touchUpInside)
         sunButton.translatesAutoresizingMaskIntoConstraints = false
         self.sunButton = sunButton
         
         let rainButton = UIButton(type: .custom)
+        rainButton.accessibilityIdentifier = "rainButton"
         rainButton.setImage(UIImage(named: "rainButton"), for: .normal)
         rainButton.layer.cornerRadius = 15
         rainButton.clipsToBounds = true
@@ -186,6 +187,7 @@ private extension MainViewController {
         self.rainButton = rainButton
         
         let cloudsButton = UIButton(type: .custom)
+        cloudsButton.accessibilityIdentifier = "cloudsButton"
         cloudsButton.setImage(UIImage(named: "cloudsButton"), for: .normal)
         cloudsButton.layer.cornerRadius = 15
         cloudsButton.clipsToBounds = true
@@ -194,6 +196,7 @@ private extension MainViewController {
         self.cloudsButton = cloudsButton
         
         let snowButton = UIButton(type: .custom)
+        snowButton.accessibilityIdentifier = "snowButton"
         snowButton.setImage(UIImage(named: "snowButton"), for: .normal)
         snowButton.layer.cornerRadius = 15
         snowButton.clipsToBounds = true
@@ -218,6 +221,7 @@ private extension MainViewController {
     
     func configureMainWeatherImageView() {
         let imageView = UIImageView()
+        imageView.accessibilityIdentifier = "imageView"
         imageView.image = UIImage(named: "sunBig")
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -236,7 +240,8 @@ private extension MainViewController {
     func configureWeatherLabel() {
         guard let mainWeatherImageView = mainWeatherImageView else {return}
         let weatherLabel = UILabel()
-        weatherLabel.text = "Hello"
+        weatherLabel.accessibilityIdentifier = "weatherLabel"
+        weatherLabel.text = " "
         weatherLabel.textColor = .black
         weatherLabel.textAlignment = .center
         weatherLabel.font = UIFont.boldSystemFont(ofSize: 30)
