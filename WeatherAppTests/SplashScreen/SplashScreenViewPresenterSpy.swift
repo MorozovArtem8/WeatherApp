@@ -5,7 +5,6 @@ import UIKit
 
 final class SplashScreenViewPresenterSpy: SplashScreenViewPresenterProtocol {
     var viewDidLoadCalled: Bool = false
-    var viewDidAppearCalled: Bool = false
     
     var view: SplashScreenViewControllerProtocol?
     
@@ -14,7 +13,7 @@ final class SplashScreenViewPresenterSpy: SplashScreenViewPresenterProtocol {
     }
     
     func viewDidAppear() {
-        viewDidAppearCalled = true
+        
     }
     
     

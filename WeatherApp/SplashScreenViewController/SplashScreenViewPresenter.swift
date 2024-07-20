@@ -40,7 +40,7 @@ final class SplashScreenViewPresenter: SplashScreenViewPresenterProtocol {
     @objc private func timerStepAnimationFlow() {
         // В данной функции проходим по всем элементам allWeatherCases и говорим контроллеру какую ImageView и с какой анимацией нужно анимировать
         // Если выходим за пределы массива - обновляем currentElementInArray на 0 что бы начинать анимацию с первого элемента
-        // Когда доходим до рандомной картинки - стопаем таймер, опять показываем нужную анимацию и с помощью DispatchQueue.main.asyncAfter переходим на MainViewController
+        // Когда доходим до выбранной рандомом картинки - стопаем таймер, опять показываем нужную анимацию и с помощью DispatchQueue.main.asyncAfter переходим на MainViewController
         
         if currentElementInArray == allWeatherCases.count {
             currentElementInArray = 0

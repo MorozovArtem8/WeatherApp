@@ -4,12 +4,17 @@ import Foundation
 @testable import WeatherApp
 
 final class MainViewPresenterSpy: MainViewPresenterProtocol {
+
     var viewDidLoadCalled: Bool = false
     
     var view: MainViewControllerProtocol?
     
     func viewDidLoad() {
         viewDidLoadCalled = true
+    }
+    
+    func viewUpdateUI() {
+        
     }
     
     func didTapSunButton() {
@@ -25,10 +30,6 @@ final class MainViewPresenterSpy: MainViewPresenterProtocol {
     }
     
     func didTapSnowButton() {
-        
-    }
-    
-    func viewUpdateUI() {
         
     }
     
