@@ -8,6 +8,10 @@ final class WeatherAppUITests: XCTestCase {
     
     override func setUpWithError() throws {
         continueAfterFailure = false
+        
+        //Отключил анимацию в Тестах
+        
+        app.launchArguments.append("-disableAnimations")
         app.launch()
         bundleForLocalizedTexts = Bundle(for: type(of: self))
     }
@@ -49,6 +53,9 @@ final class WeatherAppUITests: XCTestCase {
         
         cloudsButton.tap()
         XCTAssertEqual(weatherLabel.label, "cloudy".localized, "Label text does not match localized string")
+        
+        snowButton.tap()
+        XCTAssertEqual(weatherLabel.label, "snow".localized, "Label text does not match localized string")
         
     }
 }
