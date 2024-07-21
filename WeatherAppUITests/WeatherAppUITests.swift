@@ -32,21 +32,22 @@ final class WeatherAppUITests: XCTestCase {
         let sunButton = app.buttons["sunButton"]
         let rainButton = app.buttons["rainButton"]
         let cloudsButton = app.buttons["cloudsButton"]
+        let snowButton = app.buttons["snowButton"]
         XCTAssertTrue(sunButton.waitForExistence(timeout: 5))
-        sleep(1)
+        XCTAssertTrue(rainButton.waitForExistence(timeout: 5))
+        XCTAssertTrue(cloudsButton.waitForExistence(timeout: 5))
+        XCTAssertTrue(snowButton.waitForExistence(timeout: 5))
+        
         sunButton.tap()
         
         let weatherLabel = app.staticTexts["weatherLabel"]
         XCTAssertTrue(weatherLabel.waitForExistence(timeout: 5))
-        
         XCTAssertEqual(weatherLabel.label, "sunny".localized, "Label text does not match localized string")
         
         rainButton.tap()
-        XCTAssertTrue(weatherLabel.waitForExistence(timeout: 5))
         XCTAssertEqual(weatherLabel.label, "rain".localized, "Label text does not match localized string")
         
         cloudsButton.tap()
-        XCTAssertTrue(weatherLabel.waitForExistence(timeout: 5))
         XCTAssertEqual(weatherLabel.label, "cloudy".localized, "Label text does not match localized string")
         
     }
